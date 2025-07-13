@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     
 
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         LookAround();
-        Debug.Log(CanInteract());
+        Debug.Log(GetInteractableObject());
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -96,8 +97,15 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
     }
 
-    bool CanInteract()
+    GameObject GetInteractableObject()
     {
-        return Physics.Raycast(cameraTransform.position, cameraTransform.forward, maxInteractDistance,interactLayer);
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, maxInteractDistance, interactLayer))
+        {
+            return hit.transform.gameObject;
+        }
+        
+        return null;
     }
 }
