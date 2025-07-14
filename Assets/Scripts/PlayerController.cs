@@ -36,12 +36,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         LookAround();
-        Debug.Log(GetInteractableObject());
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             Jump();
         }
+
+        if (Input.GetKey(KeyCode.E) && IsGrounded())
+        {
+            if (GetInteractableObject() != null)
+            {
+                Destroy(GetInteractableObject());
+            }
+    }
     }
 
     void FixedUpdate()
