@@ -6,12 +6,14 @@ public class Inventory : MonoBehaviour
     public int slotCount = 20;
     public List<InventorySlot> slots = new();
 
+    public Item iron;
+
     void Awake()
     {
         for (int i = 0; i < slotCount; i++)
             slots.Add(new InventorySlot());
     }
-
+    
     public bool AddItem(Item item, int amount)
     {
         int remaining = amount;
